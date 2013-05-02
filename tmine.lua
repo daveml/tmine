@@ -58,6 +58,7 @@ function buildZFill(jQ, tpos, z, x, y)
 				dir = 1
 			end
 		end
+		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, -1, 0}})
 		height=height+1
 		if height==y then break end
 
@@ -73,7 +74,7 @@ function buildZFill(jQ, tpos, z, x, y)
 			end
 		end
 	
-		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 0, 1*h}})
+		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 1, 1*h}})
 	end
 	jobQueue.pushright(jQ, {Q_tposPlaceModeDisable, {tpos}})
 	jobQueue.pushright(jQ, {Q_tposRecallMoveRel, {tpos, 1, 0,0,1}})

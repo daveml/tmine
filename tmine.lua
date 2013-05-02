@@ -49,17 +49,32 @@ function buildZFill(jQ, tpos, z, x, y)
 	local dir = 1
 	for height=1, y do
 		for width=1, x+1 do
-			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, z*dir, 0, height-1}})
-			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 1, height-1}})
+			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, z*dir, 0, (height-1)*h}})
+			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 1, (height-1)*h}})
 			if dir==1 then 
 				dir = -1 
 			else
 				dir = 1
 			end
 		end
+		height=height+1
+		if height=y then break end
+
+		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 0, 1*h}})
+
+		for width=1, x+1 do
+			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, z*dir, 0, (height-1)*h}})
+			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, -1, (height-1)*h}})
+			if dir==1 then 
+				dir = -1 
+			else
+				dir = 1
+			end
+		end
+	
+		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 0, 1*h}})
 	end
 	jobQueue.pushright(jQ, {Q_tposPlaceModeDisable, {tpos}})
-	jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 0, 1}})
 	jobQueue.pushright(jQ, {Q_tposRecallMoveRel, {tpos, 1, 0,0,1}})
 --	jobQueue.pushright(jQ, {Q_tposPlaceModeEnable, {tpos}})
 	return ((z+1)*(x+1)*(y)+(x+1))

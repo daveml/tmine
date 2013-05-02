@@ -58,7 +58,7 @@ function buildZFill(jQ, tpos, z, x, y)
 			end
 		end
 		height=height+1
-		if height=y then break end
+		if height==y then break end
 
 		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 0, 1*h}})
 

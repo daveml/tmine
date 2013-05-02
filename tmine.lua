@@ -50,8 +50,8 @@ function buildZFill(jQ, tpos, z, x, y)
 	local dir = 1
 	for height=1, y do
 		for width=1, x+1 do
-			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, z*dir, 0, (height-1)*h}})
-			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 1, (height-1)*h}})
+			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, z*dir, 0, 0}})
+			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 1, 0}})
 			if dir==1 then 
 				dir = -1 
 			else
@@ -64,8 +64,8 @@ function buildZFill(jQ, tpos, z, x, y)
 		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 0, 1*h}})
 
 		for width=1, x+1 do
-			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, z*dir, 0, (height-1)*h}})
-			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, -1, (height-1)*h}})
+			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, z*dir, 0, 0}})
+			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, -1, 0}})
 			if dir==1 then 
 				dir = -1 
 			else

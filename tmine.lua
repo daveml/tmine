@@ -42,9 +42,10 @@ end
 
 function buildZFill(jQ, tpos, z, x, y)
 	jobQueue.pushright(jQ, { Q_tposSavePosition, {tpos, 1}})
+	local h=1
 	if y < 0 then
 		y = -y
-		local h=-1
+		h=-1
 	end
 	local dir = 1
 	for height=1, y do

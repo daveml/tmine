@@ -127,7 +127,7 @@ function main(args)
 		return
 	end
 
-	if zr ~=nil
+	if zr ~=nil then
 		if xr == nil or yr == nil then
 			usage()
 			return
@@ -146,7 +146,7 @@ function main(args)
 
 	fuelReq1 = buildBegin(jQ, myTpos)
 	fuelReqR = 0
-	if zr ~= nil
+	if zr ~= nil then
 		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, zr, xr, yr}})
 		fuelReqR = zr + xr + yr
 	end

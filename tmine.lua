@@ -50,7 +50,7 @@ function buildZFill(jQ, tpos, z, x, y)
 		for width=1, x+1 do
 			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, z*dir, 0, 0}})
 			moves = moves+z
-			if width ~= x+1 then
+			if width ~= x then
 				jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 1, 0}})
 				moves = moves+1
 			end
@@ -69,7 +69,7 @@ function buildZFill(jQ, tpos, z, x, y)
 		for width=1, x+1 do
 			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, z*dir, 0, 0}})
 			moves = moves+z
-			if width ~= x+1 then
+			if width ~= x then
 				jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, -1, 0}})
 				moves = moves+1
 			end

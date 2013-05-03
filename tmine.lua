@@ -149,8 +149,8 @@ function main(args)
 	fuelReq1 = buildBegin(jQ, myTpos)
 	fuelReqR = 0
 	if zr ~= nil then
-		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, zr, xr, yr}})
-		fuelReqR = zr + xr + yr
+		jobQueue.pushright(jQ, {Q_tposMoveRel, {myTpos, zr, xr, yr}})
+		fuelReqR = math.abs(zr) + math.abs(xr) + math.abs(yr)
 	end
 	fuelReq2 = buildZFill(jQ, myTpos, zm, xm, ym)
 --	fuelReq3 = buildYHollow(jQ, myTpos, zm, xm, ym)

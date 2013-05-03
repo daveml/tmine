@@ -5,13 +5,10 @@ tposLib()
 
 local args = {...}
 
-local zm = tonumber(args[1])
-local xm = tonumber(args[2])
-local ym = tonumber(args[3])
 
 function usage()
-	print("--tbuild")
-	print("usage: tbuild z y x")
+	print("--tmine")
+	print("usage: tmine z x y [zr xr yr]")
 
 end
 
@@ -47,26 +44,35 @@ function buildZFill(jQ, tpos, z, x, y)
 		y = -y
 		h=-1
 	end
+	local moves=0
 	local dir = 1
 	for height=1, y do
 		for width=1, x+1 do
 			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, z*dir, 0, 0}})
-			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 1, 0}})
+			moves = moves+z
+			if width ~= x+1 then
+				jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 1, 0}})
+				moves = moves+1
+			end
 			if dir==1 then 
 				dir = -1 
 			else
 				dir = 1
 			end
 		end
-		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, -1, 0}})
 		height=height+1
 		if height==y then break end
 
 		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 0, 1*h}})
+		moves=moves+1
 
 		for width=1, x+1 do
 			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, z*dir, 0, 0}})
-			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, -1, 0}})
+			moves = moves+z
+			if width ~= x+1 then
+				jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, -1, 0}})
+				moves = moves+1
+			end
 			if dir==1 then 
 				dir = -1 
 			else
@@ -74,12 +80,13 @@ function buildZFill(jQ, tpos, z, x, y)
 			end
 		end
 	
-		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 1, 1*h}})
+		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 0, 1*h}})
+		moves=moves+1
 	end
 	jobQueue.pushright(jQ, {Q_tposPlaceModeDisable, {tpos}})
 	jobQueue.pushright(jQ, {Q_tposRecallMoveRel, {tpos, 1, 0,0,1}})
---	jobQueue.pushright(jQ, {Q_tposPlaceModeEnable, {tpos}})
-	return ((z+1)*(x+1)*(y)+(x+1))
+	moves = moves + z + x + y
+	return moves
 end
 
 function buildReturn(jQ, tpos, CanBreak)
@@ -102,18 +109,26 @@ function buildBegin(jQ, tpos)
 	return 1
 end
 
-function main(zm,ym,xm)
+function main(args)
 	
-	if zm == nil then
+	local zm = tonumber(args[1])
+	local xm = tonumber(args[2])
+	local ym = tonumber(args[3])
+
+	local zr = tonumber(args[1])
+	local xr = tonumber(args[2])
+	local yr = tonumber(args[3])
+
+	if zm == nil or xm == nil or ym == nil then
 		usage()
 		return
 	end
-	
-	if ym == nil then
-		ym = 0
-	end
-	if xm == nil then
-		xm = 0
+
+	if zr ~=nil
+		if xr == nil or yr == nil then
+			usage()
+			return
+		end
 	end
 
     if myTpos == nil then
@@ -127,13 +142,18 @@ function main(zm,ym,xm)
 	jQ = jobQueue.new()
 
 	fuelReq1 = buildBegin(jQ, myTpos)
+	fuelReqR = 0
+	if zr ~= nil
+		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, zr, xr, yr}})
+		fuelReqR = zr + xr + yr
+	end
 	fuelReq2 = buildZFill(jQ, myTpos, zm, xm, ym)
 --	fuelReq3 = buildYHollow(jQ, myTpos, zm, xm, ym)
 --	fuelReq4 = buildZFill(jQ, myTpos, zm, xm, 1)
 	fuelReq3 = buildReturn(jQ, myTpos, false)
 
-	if Refuel(1,fuelReq1+fuelReq2) == false then
-		exit(0)
+	if Refuel(1,(fuelReq1+fuelReq2+fuelReqR)) == false then
+		return
 	end
 
 	tposSetPlaceSlot(myTpos, 2)
@@ -142,4 +162,6 @@ function main(zm,ym,xm)
 
 end
 
-main(zm,ym,xm)
+main(args)
+
+return

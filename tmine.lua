@@ -133,6 +133,7 @@ function main(args)
 			usage()
 			return
 		end
+		print("Move to rel coord: "..zr.." "..xr.." "..yr)
 	end
 
     if myTpos == nil then

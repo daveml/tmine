@@ -84,7 +84,7 @@ function buildZFill(jQ, tpos, z, x, y)
 			
 		end
 	
-		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 0, 1eh}})
+		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 0, 1}})
 		moves=moves+1
 	end
 	jobQueue.pushright(jQ, {Q_tposPlaceModeDisable, {tpos}})

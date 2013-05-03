@@ -118,16 +118,16 @@ function main(args)
 	local xm = tonumber(args[2])
 	local ym = tonumber(args[3])
 
-	local zr = tonumber(args[1])
-	local xr = tonumber(args[2])
-	local yr = tonumber(args[3])
+	local zr = tonumber(args[4])
+	local xr = tonumber(args[5])
+	local yr = tonumber(args[6])
 
 	if zm == nil or xm == nil or ym == nil then
 		usage()
 		return
 	end
 
-	if zr ~=nil then
+	if zr ~= nil then
 		if xr == nil or yr == nil then
 			usage()
 			return

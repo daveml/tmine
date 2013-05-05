@@ -173,6 +173,9 @@ function main(args)
 		fuelReqR = math.abs(zr) + math.abs(xr) + math.abs(yr)
 	end
 
+	zm = zm - 1
+	xm = xm - 1
+	
 	if mode == "normal" then
 		fuelReq2 = buildZFill(jQ, myTpos, zm, xm, ym)
 		fuelReq3 = buildReturn(jQ, myTpos, true)
@@ -183,6 +186,7 @@ function main(args)
 		for vein=4,xm-3,3 do
 			jobQueue.pushright(jQ, {Q_tposMoveRel, {myTpos, 0, 3, 0}})
 			buildZFill(jQ, myTpos, zm, 1, ym)
+			jobQueue.pushright(jQ, {Q_tposMoveRel, {myTpos, 0, 0, -1}})
 		end
 	end
 --	fuelReq4 = buildZFill(jQ, myTpos, zm, xm, 1)

@@ -46,6 +46,7 @@ function buildZFill(jQ, tpos, z, x, y)
 	local moves=0
 	local dir = 1
 	local height=0
+
 	while height < y do
 		for width=1, x+1 do
 			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, (z-1)*dir, 0, 0}})
@@ -81,9 +82,8 @@ function buildZFill(jQ, tpos, z, x, y)
 
 			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, -1, 0}})
 			moves = moves+1
-			height=height+1
-			
 		end
+		height=height+1
 		if height >= y then break end
 		
 		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 0, 1*h}})

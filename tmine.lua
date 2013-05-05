@@ -1,10 +1,9 @@
 -- tbuild
-local tposLib = assert(loadfile('/rom/apis/tpos'))
---local tposLib = assert(loadfile('/downloads/tbuild/tpos.lua'))
+--local tposLib = assert(loadfile('/rom/apis/tpos'))
+local tposLib = assert(loadfile('/downloads/tbuild/tpos.lua'))
 tposLib()
 
 local args = {...}
-
 
 function usage()
 	print("--tmine")
@@ -63,7 +62,7 @@ function buildZFill(jQ, tpos, z, x, y)
 
 		end
 		height=height+1
-		if height==y then break end
+		if heighty>y then break end
 
 		jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, 0, 0, 1*h}})
 		moves=moves+1
@@ -155,7 +154,7 @@ function main(args)
 	fuelReq2 = buildZFill(jQ, myTpos, zm, xm, ym)
 --	fuelReq3 = buildYHollow(jQ, myTpos, zm, xm, ym)
 --	fuelReq4 = buildZFill(jQ, myTpos, zm, xm, 1)
-	fuelReq3 = buildReturn(jQ, myTpos, false)
+	fuelReq3 = buildReturn(jQ, myTpos, true)
 
 	if Refuel(1,(fuelReq1+fuelReq2+fuelReqR)) == false then
 		return

@@ -45,6 +45,7 @@ function buildZFill(jQ, tpos, z, x, y)
 	end
 	local moves=0
 	local dir = 1
+	local height
 	for height=1, y do
 		for width=1, x+1 do
 			jobQueue.pushright(jQ, {Q_tposMoveRel, {tpos, (z-1)*dir, 0, 0}})

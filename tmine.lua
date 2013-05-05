@@ -182,7 +182,7 @@ function main(args)
 		jobQueue.pushright(jQ, {Q_tposMoveRel, {myTpos, 1, 0, 0}})
 		for vein=4,xm-3,3 do
 			jobQueue.pushright(jQ, {Q_tposMoveRel, {myTpos, 0, 3, 0}})
-			buildZFill(jQ, myTpos, zm-1, 1, ym)
+			buildZFill(jQ, myTpos, zm, 1, ym)
 		end
 	end
 --	fuelReq4 = buildZFill(jQ, myTpos, zm, xm, 1)

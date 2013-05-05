@@ -125,9 +125,26 @@ function main(args)
 	local xr = tonumber(args[5])
 	local yr = tonumber(args[6])
 
+	local mode="normal"
+	
 	if zm == nil or xm == nil or ym == nil then
-		usage()
-		return
+		print("Vein Mine? [N,y]")
+		ans = read()
+		if ans == "y" then
+			print("Enter Z distance: [20]")
+			zm = tonumber(read())
+			if zm == nil then zm = 20 end
+			print("Enter X width: [18]")
+			xm = tonumber(read())
+			if xm == nil then xm = 18 end
+			print("Enter Y height [7]:")
+			ym = tonumber(read())
+			if ym == nil then ym = 7 end
+			mode = "vein"
+		else
+			usage()
+			return
+		end
 	end
 
 	if zr ~= nil then
@@ -150,13 +167,26 @@ function main(args)
 
 	fuelReq1 = buildBegin(jQ, myTpos)
 	fuelReqR = 0
+
 	if zr ~= nil then
 		jobQueue.pushright(jQ, {Q_tposMoveRel, {myTpos, zr, xr, yr}})
 		fuelReqR = math.abs(zr) + math.abs(xr) + math.abs(yr)
 	end
-	fuelReq2 = buildZFill(jQ, myTpos, zm, xm, ym)
---	fuelReq3 = buildYHollow(jQ, myTpos, zm, xm, ym)
+
+	if mode == "normal" then
+		fuelReq2 = buildZFill(jQ, myTpos, zm, xm, ym)
+		fuelReq3 = buildReturn(jQ, myTpos, true)
+	elseif mode == "vein" then
+		fuelReq3 = buildYHollow(jQ, myTpos, zm, xm, ym)
+		fuelReq3 = buildReturn(jQ, myTpos, true)
+		jobQueue.pushright(jQ, {Q_tposMoveRel, {myTpos, 1, 0, 0}})
+		for vein=4,xm-3,3 do
+			jobQueue.pushright(jQ, {Q_tposMoveRel, {myTpos, 0, 3, 0}})
+			buildZFill(jQ, myTpos, zm-1, 1, ym)
+		end
+	end
 --	fuelReq4 = buildZFill(jQ, myTpos, zm, xm, 1)
+
 	fuelReq3 = buildReturn(jQ, myTpos, true)
 
 	if Refuel(1,(fuelReq1+fuelReq2+fuelReqR)) == false then

@@ -177,7 +177,7 @@ function main(args)
 		fuelReq2 = buildZFill(jQ, myTpos, zm, xm, ym)
 		fuelReq3 = buildReturn(jQ, myTpos, true)
 	elseif mode == "vein" then
-		fuelReq3 = buildYHollow(jQ, myTpos, zm, xm, ym)
+		fuelReq2 = buildYHollow(jQ, myTpos, zm, xm, ym)
 		fuelReq3 = buildReturn(jQ, myTpos, true)
 		jobQueue.pushright(jQ, {Q_tposMoveRel, {myTpos, 1, 0, 0}})
 		for vein=4,xm-3,3 do

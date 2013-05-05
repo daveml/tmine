@@ -183,7 +183,7 @@ function main(args)
 		fuelReq2 = buildYHollow(jQ, myTpos, zm, xm, ym)
 		fuelReq3 = buildReturn(jQ, myTpos, true)
 		jobQueue.pushright(jQ, {Q_tposMoveRel, {myTpos, 1, 0, 0}})
-		for vein=4,xm-3,3 do
+		for vein=1,xm-3,3 do
 			jobQueue.pushright(jQ, {Q_tposMoveRel, {myTpos, 0, 3, 0}})
 			buildZFill(jQ, myTpos, zm, 1, ym)
 			jobQueue.pushright(jQ, {Q_tposMoveRel, {myTpos, 0, 0, -1}})
